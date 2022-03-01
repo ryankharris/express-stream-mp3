@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>MP3 Stream Client</title>
+</head>
+
+<body>
+  <h1>Welcome to the MP3 stream client page</h1>
+  <audio id="audio-el" src="" autoplay></audio>
+  <div>
+    <button onclick="sendRequest()">Request audio stream</button>
+  </div>
+
+  <script>
+    const streamPath = 'http://localhost:3000/stream';
+    const ttsPath = 'http://localhost:3000/tts';
+
+    const setMp3ToAudioEl = async (fileStream) => {
+      const audioEl = document.getElementById('audio-el');
+      const mp3 = await fileStream.blob();
+      audioEl.src = URL.createObjectURL(mp3);
+    };
+
+    const sendRequest = async () => {
+      const response = await fetch(streamPath);
+      setMp3ToAudioEl(response);
+    };
+
+  </script>
+</body>
+
+</html>
